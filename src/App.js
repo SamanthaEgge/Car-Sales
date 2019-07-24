@@ -15,12 +15,17 @@ class App extends React.Component {
     };
   }
 
-  removeFeature = item => {
+  removeFeature = (itemID) => {
     // dispatch an action here to remove an item
+    // event.preventDefault();
+    this.props.removeCarFeature(itemID)
   };
 
-  buyItem = item => {
+  buyItem = (itemID) => {
     // dipsatch an action here to add an item
+    // event.preventDefault();
+    console.log('App.js Buy Item itemID : ',itemID)
+    this.props.addCarFeature(itemID)
   };
 
   render() {
@@ -45,4 +50,4 @@ const mapStateToProps = (state) => ({
   store: state.store
 })
 
-export default connect(mapStateToProps, {})(App);
+export default connect(mapStateToProps, { addCarFeature, removeCarFeature })(App);
