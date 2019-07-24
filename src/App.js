@@ -8,28 +8,35 @@ import AddedFeatures from './components/AddedFeatures';
 import AdditionalFeatures from './components/AdditionalFeatures';
 import Total from './components/Total';
 
-const App = () => {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
 
-  const removeFeature = item => {
+  removeFeature = item => {
     // dispatch an action here to remove an item
   };
 
-  const buyItem = item => {
+  buyItem = item => {
     // dipsatch an action here to add an item
   };
 
-  return (
-    <div className="boxes">
-      <div className="box">
-        <Header car={state.car} />
-        <AddedFeatures car={state.car} />
+  render() {
+    console.log(this.props.car)
+    return (
+      <div className="boxes">
+        <div className="box">
+          <Header car={this.props.car} />
+          <AddedFeatures car={this.props.car} removeFeature={this.removeFeature} />
+        </div>
+        <div className="box">
+          <AdditionalFeatures store={this.props.store} buyItem={this.buyItem} />
+          <Total car={this.props.car} additionalPrice={this.props.additionalPrice} />
+        </div>
       </div>
-      <div className="box">
-        <AdditionalFeatures store={state.store} />
-        <Total car={state.car} additionalPrice={state.additionalPrice} />
-      </div>
-    </div>
-  );
+    )}
 };
 
 const mapStateToProps = (state) => ({
