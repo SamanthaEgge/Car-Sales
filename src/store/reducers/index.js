@@ -20,21 +20,30 @@ const initialState = {
 export const carReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_FEATURE:
-      const selectedItem = state.store.filter(val => {
-        return val.id === action.payload})
-      console.log('Action, Add Feature : ', selectedItem)
+      // const selectedItem = state.store.filter(val => {
+      //   return val.id === action.payload})
+      const updatedPriceAdd = state.additionalPrice+action.payload.price
+      const filteredStore = state.store.filter(item => {
+        return item.id !== action.payload.id
+      })
+      console.log('Action, Add Feature : ', action.payload)
       return {
         ...state,
-        car: {...state.car, features: selectedItem }
+        additionalPrice: updatedPriceAdd,
+        car: {...state.car, features: [...state.car.features, action.payload]},
+        store: filteredStore
       }
     case REMOVE_FEATURE:
       const filteredFeatures = state.car.features.filter(val => {
-        return val.id !== action.payload
+        return val.id !== action.payload.id
       })
+      const updatedPriceRemove = state.additionalPrice-action.payload.price
       console.log(filteredFeatures)
       return {
         ...state,
-        car: {...state.car, features: filteredFeatures}
+        car: {...state.car, features: filteredFeatures},
+        additionalPrice: updatedPriceRemove,
+        store: [...state.store, action.payload]
       }
     default:
       return state;
